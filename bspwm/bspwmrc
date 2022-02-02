@@ -21,7 +21,7 @@ bspc rule -a Screenkey manage=off
 # Fondo de pantalla con 'feh'
 #feh --bg-fill /home/zak0s/Desktop/Wallpapers/fondo.jpg
 # Polybar
-/home/zak0s/.config/polybar/./launch.sh
+~/.config/polybar/./launch.sh
 # Para que siga al mouse
 bspc config focus_follows_pointer true
 picom --experimental-backends &
