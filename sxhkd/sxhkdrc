@@ -123,7 +123,7 @@ super + ctrl + {Left,Down,Up,Right}
 # CUSTOMS move/resize (by S4vitar)
 
 alt + shift + {Left, Down, Up, Right}
-	/home/zak0s/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
+	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
 # Open firefox (with firejail)
 super + shift + f
