@@ -1,0 +1,12 @@
+#!/bin/sh
+# display client information
+# config file's path:  ~/.config/client
+
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+GREEN='\033[92m'
+NC='\033[0m' # No Color
+
+client_name=`cat ~/.config/client`
+
+echo "Client: " $client_name

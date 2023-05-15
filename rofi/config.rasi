@@ -1,0 +1,53 @@
+configuration {
+  modi: [ window, drun, run ];
+}
+
+@theme "~/.config/rofi/themes/gruvbox-light-soft.rasi"
+ 
+/* Insert theme modifications after this */
+/* Doc: https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown */
+
+window {
+	width:		35%;
+	//background-color: rgb(90,65,217);
+}
+
+listview {
+	lines:		10;
+	scrollbar:	true;
+}
+
+entry {
+	placeholder: "Type here boss...";
+	cursor: pointer;
+}
+
+
+/* Element is the element holding each entry in listview */
+element {
+	orientation: horizontal;
+	children: [ element-text, element-icon ];
+	spacing: 10px;
+}
+
+/* The icon of the app. < element-text >  | <element-icon> */
+element-icon {
+    size: 1.5em;
+	background-color: rgb(186,140,255);
+}
+
+// Change the color of the entry and element-text
+entry, element-text {
+  text-color: blue;
+  background-color: rgb(186,140,255);
+}
+
+// Center the text relative to the icon 
+element-text {
+	vertical-align: 0.5;
+}
+
+entry {
+	cursor-color: rgb(220,0,0);
+	cursor-width: 5px;
+}
