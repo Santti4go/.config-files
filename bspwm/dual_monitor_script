@@ -17,12 +17,16 @@ laptop_mon=$(xrandr -q | grep " connected" | cut -d ' ' -f1 | grep eDP*)
 # por default el HDMI esta a la izquierda de la notebook
 # si estuviera a la derecha cambiar '--left-of --> --right-of'
 # se configura como primario al HDMI
+external_monitor_pos="--left-of"
 if [[ $external_monitor = *HDMI* ]]; then
-	xrandr --output $laptop_mon --primary --mode 1920x1080 --rotate normal --output $external_monitor --mode 1920x1080 --rotate normal --left-of $laptop_mon
-	#bspc monitor $external_monitor -d 1 2 3 4 5
-	#bspc monitor $laptop_mon -d 6 7 8 9 0
-	bspc monitor $laptop_mon -d 1 2 3 4 5
-	bspc monitor $external_monitor -d 6 7 8 9 0
+	xrandr --output $laptop_mon --primary --mode 1920x1080 --rotate normal --output $external_monitor --mode 1920x1080 --rotate normal $external_monitor_pos $laptop_mon
+	if [[ $external_monitor_pos == "--right-of" ]]; then
+		bspc monitor $external_monitor -d 1 2 3 4 5
+		bspc monitor $laptop_mon -d 6 7 8 9 0
+	else
+		bspc monitor $laptop_mon -d 1 2 3 4 5
+		bspc monitor $external_monitor -d 6 7 8 9 0
+	fi
 else
 	xrandr --output $laptop_mon --primary --mode 1920x1080 --rotate normal
 	bspc monitor $laptop_mon -d 1 2 3 4 5 6 7 8 9 0
