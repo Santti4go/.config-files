@@ -18,16 +18,29 @@ def output_fmt(date):
     date = strptime(date, desired_format_date)
     return strftime("%H:%M", date)
 
+
+def PrintEvent(event):
+    global event_founded
+    print(f"{CALENDAR_ICON}{output_fmt(event_date)}| {event['summary']}")
+    event_founded = True
+
 event_founded = False
 first_unresponded_meet = None
 
 for event in meets:
+    my_response = None
     # loop all the attendes to get me
     attendees = event.get('attendees')
-    for attendee in attendees:
-        if attendee.get('self'):
-            my_response = attendee['responseStatus']
-            break
+    if attendees:
+        for attendee in attendees:
+            if attendee.get('self'):
+                my_response = attendee['responseStatus']
+                break
+    else: # I'm the only one on the event, print it
+        event_date = GetEventDate(event, desired_format_date)
+        PrintEvent(event)
+        event_founded = True
+        break
     # verify if I'm going to attend the event
     if my_response == "declined":
         continue
@@ -49,7 +62,6 @@ for event in meets:
             first_unresponded_meet = event
 
 if not event_founded:
-    #print("u")
     if first_unresponded_meet == None:
         NoMeetingsToday()
     else:
@@ -58,7 +70,7 @@ if not event_founded:
         event_date = GetEventDate(event, desired_format_date)
         # print it only if it's happening today
         if UpcomingEventToday(event_date, desired_format_date):
-                print(f"[T]{output_fmt(event_date)}| {event['summary']}")
+                PrintEvent(event)
         else:
             NoMeetingsToday()
  
