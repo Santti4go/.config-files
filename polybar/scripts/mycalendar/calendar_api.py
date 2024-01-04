@@ -66,6 +66,8 @@ def query(N=10, log=False):
 
     except HttpError as error:
         print('An error occurred: %s' % error)
+        with open("debug.log", "w") as f:
+            f.write(error)
 
 
 if __name__ == '__main__':

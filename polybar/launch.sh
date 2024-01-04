@@ -23,11 +23,11 @@ MONITOR=$monit polybar --reload spotify -c ~/.config/polybar/current.ini &
 ## Right bar
 MONITOR=$monit polybar --reload top -c ~/.config/polybar/current.ini &
 MONITOR=$monit polybar --reload level -c ~/.config/polybar/current.ini &
+
 # My calendar
 MONITOR=$monit polybar --reload calendar -c ~/.config/polybar/current.ini &
 
 ## Center bar
 MONITOR=$monit polybar --reload primary -c ~/.config/polybar/current.ini &
-# MONITOR=$monit polybar --reload primary -c ~/.config/polybar/workspace.ini &
 
 done

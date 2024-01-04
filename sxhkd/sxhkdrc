@@ -39,8 +39,8 @@ Print
 
 # select region to take screen and copy to clipboard
 super + shift + s
-	maim -s | xclip -selection clipboard -t image/png
-#	maim -s /mnt/screenshots/$(date +%Y-%m-%d_%H-%m-%s).jpg
+#	maim -s | xclip -selection clipboard -t image/png
+	flameshot gui --path /mnt/screenshots/
 
 # select region to take screenshot and SAVE to directory
 super + shift + ctrl + s
@@ -189,6 +189,7 @@ super + shift + e
 # Open VPN (iRobot)
 super + shift + v
 	/opt/cisco/anyconnect/bin/vpnui
+	# /opt/zscaler/bin/ZSTray.Deb
 
 # Open Notepadqq
 super + shift + n
