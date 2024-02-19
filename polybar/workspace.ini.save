@@ -71,10 +71,10 @@ offset-x = 10
 offset-y = 10
 
 ; Background ARGB color (e.g. #f00, #ff992a, #ddff1023)
-background = ${color.bg}
+background = ${color.background}
 ;background = #A7D6FD
 ; Foreground ARGB color (e.g. #f00, #ff992a, #ddff1023)
-foreground = ${color.fg}
+foreground = ${color.foreground}
 
 ; Background gradient (vertical steps)
 ;   background-[0-9]+ = #aarrggbb
@@ -107,7 +107,7 @@ line-color = ${color.ac}
 ; following horizontal space on the bar:
 ;   width - border-right-size - border-left-size
 border-size = 0
-border-color = ${color.bg}
+border-color = ${color.background}
 border-top-size = 0
 
 ; Number of spaces to add at the beginning/end of the bar
@@ -235,7 +235,7 @@ tray-transparent = false
 ; ARGB color (e.g. #f00, #ff992a, #ddff1023)
 ; By default the tray container will use the bar
 ; background color.
-tray-background = ${color.bg}
+tray-background = ${color.background}
 
 ; Tray offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
 tray-offset-x = 0
@@ -383,19 +383,19 @@ format-padding = 0
 label-active = "+ "
 ;label-active = "∙ "
 label-active-foreground = ${color.red}
-label-active-background = ${color.bg}
+label-active-background = ${color.background}
 
 label-occupied = "- "
 label-occupied-foreground = ${color.yellow}
-label-occupied-background = ${color.bg}
+label-occupied-background = ${color.background}
 
 label-urgent = "%icon% "
 label-urgent-foreground = ${color.ac}
-label-urgent-background = ${color.bg}
+label-urgent-background = ${color.background}
 
 label-empty = "- "
 label-empty-foreground = ${color.white}
-label-empty-background = ${color.bg}
+label-empty-background = ${color.background}
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
@@ -403,7 +403,7 @@ label-empty-background = ${color.bg}
 type = internal/xworkspaces
 
 format = <label-state>
-format-foreground = ${color.fg}
+format-foreground = ${color.foreground}
 format-font = 3
 format-padding = 0
 
@@ -419,7 +419,7 @@ abel-empty =
 type = internal/xwindow
 
 format = <label>
-format-foreground = ${color.fg}
+format-foreground = ${color.foreground}
 format-font = 2
 
 label = %title%
@@ -434,7 +434,7 @@ content = " | "
 content-font = 2
 
 ;;content-background = #000
-content-foreground = ${color.fg}
+content-foreground = ${color.foreground}
 ;;content-padding = 4
 
 [module/sep2]
@@ -442,7 +442,7 @@ type = custom/text
 content = "   "
 
 ;;content-background = #000
-content-foreground = ${color.fg}
+content-foreground = ${color.foreground}
 ;;content-padding = 4
 
 ;; _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
