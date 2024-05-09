@@ -2,16 +2,9 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-# run the xrandr command if an external monitor is connected to the
-# laptop.  This must be executed before the polybar command, so that
-# polybar can set the two separate bars properly.
-
 if [ -x /home/santiago/.config/bspwm/dual_monitor_script ];then
     /home/santiago/.config/bspwm/dual_monitor_script
 fi
-
-#bspc monitor HMDI-1-1 -d 1 2 3 4 5
-#bspc monitor eDP-1-1 -d 6 7 8 9 0
 
 bspc config border_width	1
 
@@ -28,17 +21,15 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
 
-# Polybar for laptop monitor
+# Polybar launch - with support for multiple monitors
 /home/santiago/.config/polybar/./launch.sh
 
-# Fondo de pantalla (with feh)
+# Wallpaper (with feh)
 feh --bg-fill /home/santiago/Pictures/Wallpapers/baby_mandalorian_yoda.jpg
 
-# If HDMI monitor, launch polybar
-# hmdi_monitor=$(xrandr -q | grep 'HDMI-1-1')
-
-# Para que siga al mouse
+# Enable mouse focus-follow
 bspc config focus_follows_pointer true
+
 picom --experimental-backends &
 bspc config border_width 2
 xsetroot -cursor_name left_ptr &
