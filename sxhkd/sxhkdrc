@@ -8,7 +8,7 @@ super + Return
 
 # program launcher with Rofi
 super + d
-	rofi -show drun
+	rofi -modes drun,filebrowser -show drun
 
 # search open windows with Rofi
 super + e
@@ -164,8 +164,8 @@ super + ctrl + {Left,Down,Up,Right}
 alt + shift + {Left, Down, Up, Right}
 	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
-# Open firefox
-super + shift + f
+# Open web browser (firefox)
+super + shift + b
 	firefox
 
 # Open nautilus (document explorer)
