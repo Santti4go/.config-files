@@ -2,8 +2,8 @@
 
 pgrep -x sxhkd > /dev/null || sxhkd &
 
-if [ -x /home/santiago/.config/bspwm/dual_monitor_script ];then
-    /home/santiago/.config/bspwm/dual_monitor_script
+if [ -x ~/.config/bspwm/dual_monitor_script ];then
+    ~/.config/bspwm/dual_monitor_script
 fi
 
 bspc config border_width	1
@@ -22,10 +22,10 @@ bspc rule -a Screenkey manage=off
 
 
 # Polybar launch - with support for multiple monitors
-/home/santiago/.config/polybar/./launch.sh
+~/.config/polybar/./launch.sh
 
 # Wallpaper (with feh)
-feh --bg-fill /home/santiago/Pictures/Wallpapers/baby_mandalorian_yoda.jpg
+feh --bg-fill ~/Pictures/Wallpapers/baby_mandalorian_yoda.jpg
 
 # Enable mouse focus-follow
 bspc config focus_follows_pointer true
