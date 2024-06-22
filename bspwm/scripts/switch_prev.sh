@@ -1,18 +1,18 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get the IDs of all the visible nodes on current desktop
 nodes=$(bspc query -N -d)
 
 # Get the ID of the currently focused node
 current=$(bspc query -N -n)
-
+ 
 # If the current node is not in the list of visible nodes, use the first node
 if [[ ! $nodes =~ $current ]]; then
   target=$(echo "$nodes" | head -n 1)
 else
   # Get the ID of the previously focused node
   previous=$(echo "$nodes" | grep -B1 "^$current$" | head -n 1)
-
+ 
   # If there is no previous node, use the last node
   if [[ -z $previous ]]; then
     target=$(echo "$nodes" | tail -n 1)

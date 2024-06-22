@@ -5,29 +5,29 @@
 # To get the name of each available monitor use
 # xrandr -q | grep -w connected
 
-# verify for HDMI
+# verify for HDMI 
 external_monitor=$(xrandr --query | grep ' connected' | cut -d " " -f1 | grep HDMI)
 
 # default monitor
-laptop_mon=$(xrandr -q | grep " connected" | cut -d ' ' -f1 | grep eDP*)
+laptop_mon=$(xrandr -q | grep " connected" | cut -d ' ' -f1)
 
 
 # if we have an HDMI, make it primary by default
-# and left to the laptop one
+# and left to the laptop one    
 # HDMI MONITOR ---- LAPTOP MONITOR
 # to change this you can use --right-of|left-of 
 
-external_monitor_pos="--left-of"
+external_monitor_pos="--left-of" 
 if [[ $external_monitor = *HDMI* ]]; then
 	xrandr --output $laptop_mon --primary --mode 1920x1080 --rotate normal --output $external_monitor --mode 1920x1080 --rotate normal $external_monitor_pos $laptop_mon
 	if [[ $external_monitor_pos == "--right-of" ]]; then
-		bspc monitor $external_monitor -d 1 2 3 4 5
-		bspc monitor $laptop_mon -d 6 7 8 9 0
+			bspc monitor $external_monitor -d 1 2 3 4 5
+			bspc monitor $laptop_mon -d 6 7 8 9 0
 	else
-		bspc monitor $laptop_mon -d 1 2 3 4 5
-		bspc monitor $external_monitor -d 6 7 8 9 0
+			bspc monitor $laptop_mon -d 1 2 3 4 5
+			bspc monitor $external_monitor -d 6 7 8 9 0
 	fi
 else
 	xrandr --output $laptop_mon --primary --mode 1920x1080 --rotate normal
-	bspc monitor $laptop_mon -d 1 2 3 4 5 6 7 8 9 0
+	bspc monitor $laptop_mon -d  6 7 8 9 0 1 2 3 4 5
 fi

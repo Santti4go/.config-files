@@ -15,7 +15,7 @@ from googleapiclient.errors import HttpError
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
-base_path = '/home/santiago/.config/polybar/scripts/mycalendar/'
+base_path = '~/.config/polybar/scripts/mycalendar/'
 token_file = os.path.join(base_path, 'token.json')
 credentials_file = os.path.join(base_path, 'credentials.json')
 
