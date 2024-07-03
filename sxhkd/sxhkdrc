@@ -26,10 +26,6 @@ super + Escape
 super + shift + p
 #	convert -resize $(xdpyinfo | grep dimensions | cut -d\  -f6 | cut -dx -f1) ~/Pictures/Wallpapers/Ekumen_Wallpaper_1.png ~/Pictures/Wallpapers/lock_screen.png;
 	i3lock -i ~/Pictures/Wallpapers/lock_screen.png --tiling --show-failed-attempts
-<<<<<<< HEAD
-#	i3lock -c e87688  # color block
-=======
->>>>>>> master
 
 #
 # Screenshots
@@ -178,14 +174,6 @@ super + shift + b
 super + shift + e
 	nautilus
 
-<<<<<<< HEAD
-# Open VPN (iRobot)
-super + shift + v
-	/opt/cisco/anyconnect/bin/vpnui
-	#/opt/zscaler/bin/ZSTray.Deb
-
-=======
->>>>>>> master
 # Open Notepadqq
 super + shift + n
 	notepadqq
