@@ -37,7 +37,7 @@ for event in meets:
                 my_response = attendee['responseStatus']
                 break
     else: # I'm the only one on the event, print it
-        if event["summary"] == "Home":
+        if event["summary"] == "Home" or event["summary"] == "Office":
             continue
         event_date = GetEventDate(event, desired_format_date)
         if UpcomingEventToday(event_date):
