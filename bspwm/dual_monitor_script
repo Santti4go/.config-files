@@ -2,21 +2,21 @@
 
 # set up the two monitors for bspwm
 
-# para saber como se llama cada uno de los monitores correr el comando
+# To get the name of each available monitor use
 # xrandr -q | grep -w connected
-# alli se muestra el nombre de cada uno de los monitores conectados
 
-# detecto si hay un HDMI
-my_laptop_external_monitor=$(xrandr --query | grep ' connected')
+# verify for HDMI
 external_monitor=$(xrandr --query | grep ' connected' | cut -d " " -f1 | grep HDMI)
 
-# laptop mon
+# default monitor
 laptop_mon=$(xrandr -q | grep " connected" | cut -d ' ' -f1 | grep eDP*)
 
-# si hay un HDMI lo hago primario
-# por default el HDMI esta a la izquierda de la notebook
-# si estuviera a la derecha cambiar '--left-of --> --right-of'
-# se configura como primario al HDMI
+
+# if we have an HDMI, make it primary by default
+# and left to the laptop one
+# HDMI MONITOR ---- LAPTOP MONITOR
+# to change this you can use --right-of|left-of 
+
 external_monitor_pos="--left-of"
 if [[ $external_monitor = *HDMI* ]]; then
 	xrandr --output $laptop_mon --primary --mode 1920x1080 --rotate normal --output $external_monitor --mode 1920x1080 --rotate normal $external_monitor_pos $laptop_mon

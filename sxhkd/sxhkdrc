@@ -8,7 +8,7 @@ super + Return
 
 # program launcher with Rofi
 super + d
-	rofi -show drun
+	rofi -modes drun,filebrowser -show drun
 
 # search open windows with Rofi
 super + e
@@ -26,7 +26,10 @@ super + Escape
 super + shift + p
 #	convert -resize $(xdpyinfo | grep dimensions | cut -d\  -f6 | cut -dx -f1) ~/Pictures/Wallpapers/Ekumen_Wallpaper_1.png ~/Pictures/Wallpapers/lock_screen.png;
 	i3lock -i ~/Pictures/Wallpapers/lock_screen.png --tiling --show-failed-attempts
+<<<<<<< HEAD
 #	i3lock -c e87688  # color block
+=======
+>>>>>>> master
 
 #
 # Screenshots
@@ -159,14 +162,6 @@ super + ctrl + shift + space
 # move/resize
 #
 
-# expand a window by moving one of its side outward
-#super + alt + {h,j,k,l}
-#	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
-
-# contract a window by moving one of its side inward
-#super + alt + shift + {h,j,k,l}
-#	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-
 # move a floating window
 super + ctrl + {h,j,k,l}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
@@ -175,23 +170,22 @@ super + ctrl + {h,j,k,l}
 alt + shift + {h,j,k,l}
 	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
-# Open firefox
-super + shift + f
+# Open web browser (firefox)
+super + shift + b
 	firefox
-
-# Open Zoom
-super + shift + z
-	zoom
 
 # Open nautilus (document explorer)
 super + shift + e
 	nautilus
 
+<<<<<<< HEAD
 # Open VPN (iRobot)
 super + shift + v
 	/opt/cisco/anyconnect/bin/vpnui
 	#/opt/zscaler/bin/ZSTray.Deb
 
+=======
+>>>>>>> master
 # Open Notepadqq
 super + shift + n
 	notepadqq
