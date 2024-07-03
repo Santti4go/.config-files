@@ -21,7 +21,7 @@ def output_fmt(date):
 
 def PrintEvent(event):
     global event_founded
-    print(f"{CALENDAR_ICON}{output_fmt(event_date)}| {event['summary']}")
+    print(f"{CALENDAR_ICON} {output_fmt(event_date)}| {event['summary']}")
     event_founded = True
 
 event_founded = False
@@ -37,23 +37,22 @@ for event in meets:
                 my_response = attendee['responseStatus']
                 break
     else: # I'm the only one on the event, print it
+        if event["summary"] == "Home" or event["summary"] == "Office":
+            continue
         event_date = GetEventDate(event, desired_format_date)
-        PrintEvent(event)
-        event_founded = True
-        break
+        if UpcomingEventToday(event_date):
+            PrintEvent(event)
+            event_founded = True
+            break
     # verify if I'm going to attend the event
     if my_response == "declined":
         continue
     elif my_response == "accepted":
         if event['status'] == "confirmed":
-            start = event['start'].get('dateTime', event['start'].get('date'))
-            # parse the date according giving format
-            parsed_date = strptime(start, origin_format_date)
-            # represent the date with desired output format
-            output_date = strftime(desired_format_date, parsed_date)
-            # just print the FIRST event and ONLY if it's TODAY
-            if UpcomingEventToday(parsed_date):
-                print(f"{CALENDAR_ICON} {output_fmt(output_date)}| {event['summary']}")
+            # Parse the date event with desired format
+            event_date = GetEventDate(event, desired_format_date)
+            if UpcomingEventToday(event_date):
+                PrintEvent(event)
                 event_founded = True
                 break
     else:
@@ -70,7 +69,7 @@ if not event_founded:
         event_date = GetEventDate(event, desired_format_date)
         # print it only if it's happening today
         if UpcomingEventToday(event_date, desired_format_date):
-                PrintEvent(event)
+            PrintEvent(event)
         else:
             NoMeetingsToday()
- 
+

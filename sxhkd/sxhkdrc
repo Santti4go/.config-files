@@ -23,7 +23,7 @@ super + Escape
 	pkill -USR1 -x sxhkd 
 
 # lock screen with i3lock
-super + l
+super + shift + p
 #	convert -resize $(xdpyinfo | grep dimensions | cut -d\  -f6 | cut -dx -f1) ~/Pictures/Wallpapers/Ekumen_Wallpaper_1.png ~/Pictures/Wallpapers/lock_screen.png;
 	i3lock -i ~/Pictures/Wallpapers/lock_screen.png --tiling --show-failed-attempts
 
@@ -61,7 +61,7 @@ XF86Audio{Raise,Lower}Volume
 # sudo gpasswd -a $USER video
 
 XF86MonBrightness{Up,Down}
-	brightnessctl set 5%{+,-}
+	sudo brightnessctl set 15%{+,-}
 
 #
 # bspwm hotkeys
@@ -104,6 +104,9 @@ super + ctrl + {m,x,y,z}
 #
 
 # focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
 super + {_,shift + }{Left,Down,Up,Right}
 	bspc node -{f,s} {west,south,north,east}
 
@@ -136,7 +139,7 @@ super + {_,shift + }{1-9,0}
 #
 
 # preselect the direction
-super + ctrl + alt + {Left,Down,Up,Right}
+super + ctrl + alt + {h,j,k,l}
 	bspc node -p {west,south,north,east}
 
 # preselect the ratio
@@ -156,12 +159,11 @@ super + ctrl + shift + space
 #
 
 # move a floating window
-super + ctrl + {Left,Down,Up,Right}
+super + ctrl + {h,j,k,l}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 # CUSTOMS move/resize (by S4vitar)
-
-alt + shift + {Left, Down, Up, Right}
+alt + shift + {h,j,k,l}
 	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
 # Open web browser (firefox)
