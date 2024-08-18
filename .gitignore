@@ -1,5 +1,6 @@
 # Ignore everything
 *
+token.json
 # Except some specific folders
 !.gitignore
 polybar/scripts/mycalendar/*.json
