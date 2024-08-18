@@ -9,7 +9,7 @@ killall -q polybar
 while pgrep -x "polybar" >/dev/null; do sleep 1; done
 
 ## Launch for each monitor
-for monit in $(xrandr --query | grep " connected" | cut -d " " -f1);do
+for monit in $(xrandr --query | grep " connected" | cut -d " " -f1 | sort -r);do
 
 # Left bar
 # MONITOR=$monit polybar --reload my-name -c ~/.config/polybar/current.ini &

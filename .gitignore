@@ -1,0 +1,13 @@
+# Ignore everything
+*
+# Except some specific folders
+!.gitignore
+polybar/scripts/mycalendar/*.json
+!polybar/*
+!bspwm/*
+!sxhkd/*
+!rofi/*
+!picom/*
+!nvim/*
+# Include whatever is inside those folders
+!*/

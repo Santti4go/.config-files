@@ -9,7 +9,7 @@
 external_monitor=$(xrandr --query | grep ' connected' | cut -d " " -f1 | grep HDMI)
 
 # default monitor
-laptop_mon=$(xrandr -q | grep " connected" | cut -d ' ' -f1 | grep eDP*)
+laptop_mon=$(xrandr -q | grep " connected" | cut -d ' ' -f1 | grep eDP)
 
 
 # if we have an HDMI, make it primary by default
@@ -17,17 +17,21 @@ laptop_mon=$(xrandr -q | grep " connected" | cut -d ' ' -f1 | grep eDP*)
 # HDMI MONITOR ---- LAPTOP MONITOR
 # to change this you can use --right-of|left-of 
 
-external_monitor_pos="--left-of"
+external_monitor_pos="--right-of"
 if [[ $external_monitor = *HDMI* ]]; then
-	xrandr --output $laptop_mon --primary --mode 1920x1080 --rotate normal --output $external_monitor --mode 1920x1080 --rotate normal $external_monitor_pos $laptop_mon
+	xrandr --auto --output $external_monitor --primary --mode 1920x1080 --rotate normal $external_monitor_pos $laptop_mon 
+	xrandr --auto --output $laptop_mon  --mode 1920x1080 --rotate normal 
 	if [[ $external_monitor_pos == "--right-of" ]]; then
+		echo "right of"
 		bspc monitor $external_monitor -d 1 2 3 4 5
 		bspc monitor $laptop_mon -d 6 7 8 9 0
 	else
+		echo "no right of"
 		bspc monitor $laptop_mon -d 1 2 3 4 5
 		bspc monitor $external_monitor -d 6 7 8 9 0
 	fi
 else
+	echo "no second monitor"
 	xrandr --output $laptop_mon --primary --mode 1920x1080 --rotate normal
 	bspc monitor $laptop_mon -d 1 2 3 4 5 6 7 8 9 0
 fi

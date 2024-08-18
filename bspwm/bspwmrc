@@ -30,7 +30,6 @@ feh --bg-fill ~/Pictures/Wallpapers/baby_mandalorian_yoda.jpg
 # Enable mouse focus-follow
 bspc config focus_follows_pointer true
 
-picom --experimental-backends &
 bspc config border_width 2
 xsetroot -cursor_name left_ptr &
 
