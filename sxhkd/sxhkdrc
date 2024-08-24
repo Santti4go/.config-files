@@ -4,11 +4,11 @@
 
 # terminal emulator
 super + Return
-	gnome-terminal
+	/usr/bin/qterminal
 
 # program launcher with Rofi
 super + d
-	rofi -modes drun,filebrowser -show drun
+	rofi -modes drun,filebrowser -show drun -show-icons
 
 # search open windows with Rofi
 super + e
@@ -23,7 +23,7 @@ super + Escape
 	pkill -USR1 -x sxhkd 
 
 # lock screen with i3lock
-super + shift + p
+super + l
 #	convert -resize $(xdpyinfo | grep dimensions | cut -d\  -f6 | cut -dx -f1) ~/Pictures/Wallpapers/Ekumen_Wallpaper_1.png ~/Pictures/Wallpapers/lock_screen.png;
 	i3lock -i ~/Pictures/Wallpapers/lock_screen.png --tiling --show-failed-attempts
 
@@ -37,13 +37,12 @@ Print
 
 # select region to take screen and copy to clipboard
 super + shift + s
-#	maim -s | xclip -selection clipboard -t image/png
-	flameshot gui --path /mnt/screenshots/
+	flameshot gui &
+
 
 # select region to take screenshot and SAVE to directory
 super + shift + ctrl + s
-	maim -s /mnt/screenshots/$(date +%Y-%m-%d_%H-%m-%s).jpg
-
+	flameshot gui --path /mnt/screenshots/
 # 
 # Audio hotkeys
 #
@@ -61,7 +60,7 @@ XF86Audio{Raise,Lower}Volume
 # sudo gpasswd -a $USER video
 
 XF86MonBrightness{Up,Down}
-	sudo brightnessctl set 15%{+,-}
+	brightnessctl set 5%{+,-}
 
 #
 # bspwm hotkeys
@@ -70,6 +69,10 @@ XF86MonBrightness{Up,Down}
 # quit/restart bspwm
 super + alt + {q,r}
 	bspc {quit,wm -r}
+
+# 2nd option to avoid recording while in VMWare
+super + alt + t
+	bspc wm -r
 
 # close and kill
 super + {_,shift + }w
@@ -104,10 +107,7 @@ super + ctrl + {m,x,y,z}
 #
 
 # focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
-
-super + {_,shift + }{Left,Down,Up,Right}
+super + {_,shift + }{h,k,j,l}
 	bspc node -{f,s} {west,south,north,east}
 
 # focus the node for the given path jump
@@ -139,7 +139,7 @@ super + {_,shift + }{1-9,0}
 #
 
 # preselect the direction
-super + ctrl + alt + {h,j,k,l}
+super + ctrl + alt + {Left,Down,Up,Right}
 	bspc node -p {west,south,north,east}
 
 # preselect the ratio
@@ -159,25 +159,35 @@ super + ctrl + shift + space
 #
 
 # move a floating window
-super + ctrl + {h,j,k,l}
+super + ctrl + {h,k,j,l}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
 # CUSTOMS move/resize (by S4vitar)
+
 alt + shift + {h,j,k,l}
 	~/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 
-# Open web browser (firefox)
+# Open WEB BROWSER (firefox)
 super + shift + b
 	firefox
 
 # Open nautilus (document explorer)
 super + shift + e
-	nautilus
+	Thunar
 
 # Open Notepadqq
 super + shift + n
 	notepadqq
 
-# Open chrome
-super + shift + d
-	/opt/google/chrome/chrome
+# Open filebrowser
+super + shift + f
+	rofi -show filebrowser -show-icons
+
+
+# Copy HOST's IP
+alt + shift + 0  
+	hostname -I | awk '\{if (NF > 1) printf("%s", $2); else printf("%s", $1)\}' | xclip -rmlastnl -sel clipboard
+
+# Copy target's IP
+alt + shift + 9
+	awk  '\{printf("%s",$1)\}' /home/kali/.config/target_info  | xclip -rmlastnl -sel clipboard

@@ -1,6 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 pgrep -x sxhkd > /dev/null || sxhkd &
+wname L3GD &
+#compton --config /home/kali/.config/compton/compton.conf
+
+# Kill xfce4-panel for systems like Kali
+pgrep xfce4-panel && xfce4-panel -q
 
 if [ -x ~/.config/bspwm/dual_monitor_script ];then
     ~/.config/bspwm/dual_monitor_script
@@ -22,14 +27,15 @@ bspc rule -a Screenkey manage=off
 
 
 # Polybar launch - with support for multiple monitors
-~/.config/polybar/./launch.sh
+~/.config/polybar/launch.sh
 
 # Wallpaper (with feh)
-feh --bg-fill ~/Pictures/Wallpapers/baby_mandalorian_yoda.jpg
+#feh --bg-fill /home/santiago/Pictures/Wallpapers/baby_mandalorian_yoda.jpg
 
 # Enable mouse focus-follow
 bspc config focus_follows_pointer true
 
+#picom --experimental-backends &
 bspc config border_width 2
 xsetroot -cursor_name left_ptr &
 
