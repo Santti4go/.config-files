@@ -8,7 +8,7 @@ polybar/scripts/mycalendar/*.json
 !bspwm/*
 !sxhkd/*
 !rofi/*
-!picom/*
-!nvim/*
+!picom/**
+!nvim/**
 # Include whatever is inside those folders
 !*/
