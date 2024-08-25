@@ -61,4 +61,4 @@ element-icon {
 
 
 
-@theme "/home/kali/.config/rofi/cool-dark-theme.rasi"
+@theme "~/.config/rofi/cool-dark-theme.rasi"
