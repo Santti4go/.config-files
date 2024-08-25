@@ -1,9 +1,7 @@
 configuration {
-  modi: [ window, drun, run ];
+  modes: [ window, drun, run, filebrowser ];
 }
 
-@theme "~/.config/rofi/themes/gruvbox-light-soft.rasi"
- 
 /* Insert theme modifications after this */
 /* Doc: https://github.com/davatorium/rofi/blob/next/doc/rofi-theme.5.markdown */
 
@@ -23,23 +21,26 @@ entry {
 }
 
 
+@theme "/usr/share/rofi/themes/purple.rasi"
+
 /* Element is the element holding each entry in listview */
 element {
 	orientation: horizontal;
-	children: [ element-text, element-icon ];
-	spacing: 10px;
+	children: [ element-icon , element-text ];
+	padding: 2px;
+	spacing: 15px;
 }
 
-/* The icon of the app. < element-text >  | <element-icon> */
-element-icon {
-    size: 1.5em;
-	background-color: rgb(186,140,255);
-}
 
 // Change the color of the entry and element-text
-entry, element-text {
+/*entry, element-text {
   text-color: blue;
   background-color: rgb(186,140,255);
+}*/
+
+listview {
+	lines: 16;
+	columns: 2;
 }
 
 // Center the text relative to the icon 
@@ -51,3 +52,13 @@ entry {
 	cursor-color: rgb(220,0,0);
 	cursor-width: 5px;
 }
+
+/* The icon of the app. < element-text >  | <element-icon> */
+element-icon {
+    size: 1.5em;
+	//background-color: rgb(186,140,255);
+}
+
+
+
+@theme "~/.config/rofi/cool-dark-theme.rasi"
