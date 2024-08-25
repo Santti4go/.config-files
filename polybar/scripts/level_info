@@ -1,8 +1,0 @@
-#!/bin/sh
-# display client information
-# config file's path:  ~/.config/client
-
-my_level=`cat ~/.config/my_level`
-
-#cat ~/.config/client
-echo $my_level
