@@ -1,6 +1,13 @@
+# Mouse buttons bindings
+@button8
+	rofi -modes drun,filebrowser -show drun
 #
 # wm independent hotkeys
 #
+
+# show help keys
+super + shift + '
+	cat ~/.config/sxhkd/sxhkdrc | awk '/^[a-z]/ && last {print $0,"\t",last} {last=""} /^#/{last=$0}' | column -t -s $'\t' | rofi -dmenu -i -markup-rows -no-show-icons -width 1000 -lines 15 -yoffset 40
 
 # terminal emulator
 super + Return
@@ -20,7 +27,7 @@ super + q
 
 # make sxhkd reload its configuration files:
 super + Escape
-	pkill -USR1 -x sxhkd 
+	pkill -USR1 -x sxhkd; notify-send 'sxhkd' 'Reloaded config'
 
 # lock screen with i3lock
 super + shift + p
