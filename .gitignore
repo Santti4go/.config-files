@@ -2,13 +2,13 @@
 *
 token.json
 # Except some specific folders
-!.gitignore
 polybar/scripts/mycalendar/*.json
 !polybar/*
 !bspwm/*
 !sxhkd/*
 !rofi/*
 !picom/**
-!nvim/**
+!nvim/*
+nvim/lazy-lock.json
 # Include whatever is inside those folders
 !*/
