@@ -24,4 +24,9 @@ return { -- Collection of various small independent plugins/modules
 			return "%2l:%-2v"
 		end
 	end,
+	{
+		"MeanderingProgrammer/render-markdown.nvim",
+		opts = {},
+		dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+	},
 }
