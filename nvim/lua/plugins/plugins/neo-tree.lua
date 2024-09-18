@@ -29,7 +29,7 @@ return {
 						modified = "[M]",
 						renamed = "[r]",
 						-- Status type
-						untracked = "",
+						untracked = "u",
 						ignored = "",
 						conflict = "[!]",
 					},
