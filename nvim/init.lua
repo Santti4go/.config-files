@@ -24,6 +24,9 @@ vim.opt.showmode = false
 --  vim.opt.clipboard = 'unnamedplus'
 --end)
 
+-- Copy to system clipboard
+vim.keymap.set("v", "Y", '"+y', { noremap = true, silent = true })
+
 -- Enable break indent
 vim.opt.breakindent = true
 
@@ -598,7 +601,16 @@ require("lazy").setup({
 		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
 		"folke/tokyonight.nvim",
 		priority = 1000, -- Make sure to load this before all the other start plugins.
-		init = function()
+		opts = {
+			on_highlights = function(hl, c)
+				hl.DiagnosticUnnecessary = {
+					fg = c.comment,
+					blend = 0,
+				}
+			end,
+		},
+		config = function(_, opts)
+			require("tokyonight").setup(opts)
 			vim.cmd.colorscheme("tokyonight")
 			-- You can configure highlights by doing something like:
 			vim.cmd.hi("Comment gui=none")
