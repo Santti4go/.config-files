@@ -1,6 +1,6 @@
 ## Usage
 
-Instead of clonning this entire repository on your local `.config` you can copy just the folders you want by creating symlink so you can still pulling updates
+Instead of clonning this entire repository on your local `.config` you can copy just the folders you want by creating symlink so you can still pull updates
 
 ```bash
 mkdir .config-santti
