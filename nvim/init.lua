@@ -395,7 +395,7 @@ require("lazy").setup({
 				clangd = {},
 				pyright = {
 					settings = {
-						pythyon = {
+						python = {
 							disableOrganizeImports = true,
 						},
 					},
