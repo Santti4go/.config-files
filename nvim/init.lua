@@ -1,5 +1,6 @@
 -- My keymaps
 require("my-keymaps")
+
 ---------------------------------------------------------------
 -- Set <space> as the leader key
 vim.g.mapleader = " "
@@ -32,6 +33,9 @@ vim.opt.breakindent = true
 
 -- Save undo history
 vim.opt.undofile = true
+
+-- Better colors in modern terminals
+vim.opt.termguicolors = true
 
 -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
 vim.opt.ignorecase = true
@@ -76,7 +80,10 @@ vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right win
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
--- [[ Basic Autocommands ]]
+-- [[ Basic Autocomands ]]
+
+-- Cargar watcher de LSP
+require("lsp_watcher")
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -84,6 +91,64 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
 	callback = function()
 		vim.highlight.on_yank()
+	end,
+})
+
+local function set_markdown_focus(bufnr, enabled)
+	local bufnr = bufnr or 0
+	if enabled then
+		if vim.b[bufnr].markdown_focus_saved == nil then
+			vim.b[bufnr].markdown_focus_saved = {
+				wrap = vim.opt_local.wrap:get(),
+				linebreak = vim.opt_local.linebreak:get(),
+				breakindent = vim.opt_local.breakindent:get(),
+				conceallevel = vim.opt_local.conceallevel:get(),
+				concealcursor = vim.opt_local.concealcursor:get(),
+				spell = vim.opt_local.spell:get(),
+			}
+		end
+		vim.opt_local.wrap = true
+		vim.opt_local.linebreak = true
+		vim.opt_local.breakindent = true
+		vim.opt_local.conceallevel = 2
+		vim.opt_local.concealcursor = "nc"
+		vim.opt_local.spell = true
+		vim.b[bufnr].markdown_focus_enabled = true
+		return
+	end
+
+	local saved = vim.b[bufnr].markdown_focus_saved
+	if saved then
+		vim.opt_local.wrap = saved.wrap
+		vim.opt_local.linebreak = saved.linebreak
+		vim.opt_local.breakindent = saved.breakindent
+		vim.opt_local.conceallevel = saved.conceallevel
+		vim.opt_local.concealcursor = saved.concealcursor
+		vim.opt_local.spell = saved.spell
+	else
+		vim.opt_local.wrap = false
+		vim.opt_local.linebreak = false
+		vim.opt_local.breakindent = false
+		vim.opt_local.conceallevel = 0
+		vim.opt_local.concealcursor = ""
+		vim.opt_local.spell = false
+	end
+	vim.b[bufnr].markdown_focus_enabled = false
+end
+
+vim.api.nvim_create_user_command("MarkdownModeToggle", function()
+	set_markdown_focus(0, not vim.b.markdown_focus_enabled)
+end, { desc = "Toggle markdown-focused reading mode" })
+
+vim.keymap.set("n", "<leader>tm", function()
+	set_markdown_focus(0, not vim.b.markdown_focus_enabled)
+end, { desc = "Toggle markdown-focused reading mode" })
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "markdown", "markdown.mdx", "gitcommit" },
+	group = vim.api.nvim_create_augroup("kickstart-markdown", { clear = true }),
+	callback = function(event)
+		set_markdown_focus(event.buf, true)
 	end,
 })
 
@@ -115,20 +180,6 @@ require("lazy").setup({
 	-- options to `gitsigns.nvim`. This is equivalent to the following Lua:
 	--    require('gitsigns').setup({ ... })
 	--
-	-- See `:help gitsigns` to understand what the configuration keys do
-	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
-		"lewis6991/gitsigns.nvim",
-		opts = {
-			signs = {
-				add = { text = "+" },
-				change = { text = "~" },
-				delete = { text = "_" },
-				topdelete = { text = "‾" },
-				changedelete = { text = "~" },
-			},
-		},
-	},
-
 	-- NOTE: Plugins can also be configured to run Lua code when they are loaded.
 	--
 	-- This is often very useful to both group configuration, as well as handle
@@ -158,7 +209,8 @@ require("lazy").setup({
 				{ "<leader>s", group = "[S]earch" },
 				{ "<leader>w", group = "[W]orkspace" },
 				{ "<leader>t", group = "[T]oggle" },
-				{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+				{ "<leader>g", group = "[G]it", mode = { "n", "v" } },
+				{ "<leader>gh", group = "Git [H]unk", mode = { "n", "v" } },
 			})
 		end,
 	},
@@ -173,7 +225,7 @@ require("lazy").setup({
 	{ -- Fuzzy Finder (files, lsp, etc)
 		"nvim-telescope/telescope.nvim",
 		event = "VimEnter",
-		branch = "0.1.x",
+		branch = "master",
 		dependencies = {
 			"nvim-lua/plenary.nvim",
 			{
@@ -400,6 +452,9 @@ require("lazy").setup({
 						},
 					},
 				},
+				kotlin_language_server = {}, -- Soporte para Kotlin
+				ts_ls = {}, -- Soporte para TypeScript y JavaScript
+				cssls = {}, -- Soporte para CSS
 				lua_ls = {
 					-- cmd = {...},
 					-- filetypes = { ...},
@@ -594,25 +649,51 @@ require("lazy").setup({
 		end,
 	},
 
-	{ -- You can easily change to a different colorscheme.
-		-- Change the name of the colorscheme plugin below, and then
-		-- change the command in the config to whatever the name of that colorscheme is.
-		--
-		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-		"folke/tokyonight.nvim",
-		priority = 1000, -- Make sure to load this before all the other start plugins.
-		opts = {
-			on_highlights = function(hl, c)
-				hl.DiagnosticUnnecessary = {
-					fg = c.comment,
-					blend = 0,
-				}
-			end,
-		},
-		config = function(_, opts)
-			require("tokyonight").setup(opts)
-			vim.cmd.colorscheme("tokyonight")
-			-- You can configure highlights by doing something like:
+	{ -- Soft paper-like colorscheme for reading code and markdown
+		"rebelot/kanagawa.nvim",
+		name = "kanagawa",
+		priority = 1000,
+		config = function()
+			vim.o.background = "light"
+			require("kanagawa").setup({
+				compile = false,
+				undercurl = true,
+				commentStyle = { italic = false },
+				keywordStyle = { italic = false },
+				statementStyle = { bold = true },
+				typeStyle = { bold = false },
+				transparent = false,
+				dimInactive = false,
+				background = {
+					light = "lotus",
+					dark = "dragon",
+				},
+				theme = "lotus",
+				overrides = function(colors)
+					return {
+						Normal = { bg = "#f7f3ea" },
+						NormalFloat = { bg = "#f7f3ea" },
+						ColorColumn = { bg = "#efe8da" },
+						CursorLine = { bg = "#efe8da" },
+						CursorLineNr = { fg = colors.fujiWhite, bold = true },
+						Comment = { fg = colors.fujiGray, italic = false },
+						LineNr = { fg = colors.fujiGray },
+						SignColumn = { bg = "#f7f3ea" },
+						WinSeparator = { fg = colors.fujiGray },
+						Pmenu = { bg = "#f1eadf" },
+						PmenuSel = { fg = colors.waveBlue1, bg = "#e2d8c8", bold = true },
+						TelescopeNormal = { bg = "#f7f3ea" },
+						TelescopeBorder = { fg = colors.fujiGray },
+						["@keyword"] = { fg = colors.waveRed, bold = true },
+						["@function"] = { fg = colors.waveAqua1 },
+						["@parameter"] = { fg = colors.sakuraPink },
+						["@string"] = { fg = colors.autumnGreen },
+						["@variable"] = { fg = colors.fujiWhite },
+						["@comment"] = { fg = colors.fujiGray, italic = false },
+					}
+				end,
+			})
+			vim.cmd.colorscheme("kanagawa-lotus")
 			vim.cmd.hi("Comment gui=none")
 		end,
 	},

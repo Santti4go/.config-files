@@ -1,0 +1,2 @@
+-- This file was previously expected in lua/plugins/plugins/git.lua. 
+-- Checking if it exists in the new location.
